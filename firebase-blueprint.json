@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Public profile for authenticated sovereign players.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["viewer", "contributor", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "lastActive": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "SovereignSession": {
+       "title": "Sovereign Intelligence Session",
+       "description": "Logs of remote procedures and intelligence duels.",
+       "type": "object",
+       "properties": {
+         "userId": { "type": "string" },
+         "action": { "type": "string" },
+         "status": { "type": "string" },
+         "timestamp": { "type": "string", "format": "date-time" }
+       }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/sessions/{sessionId}": {
+      "schema": "SovereignSession",
+      "description": "Activity logs"
+    }
+  }
+}
